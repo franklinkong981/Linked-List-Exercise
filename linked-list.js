@@ -51,7 +51,25 @@ class LinkedList {
   /** pop(): return & remove last item. */
 
   pop() {
+    if (!this.length) {
+      throw new Error("The list is empty!");
+    }
 
+    let nodeToRemove = this.tail;
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+    }
+    else {
+      let currentNode = this.head;
+      while (currentNode.next !== this.tail) {
+        currentNode = currentNode.next;
+      }
+      currentNode.next = null;
+      this.tail = currentNode;
+    }
+    this.length--;
+    return nodeToRemove.val;
   }
 
   /** shift(): return & remove first item. */
@@ -91,21 +109,15 @@ class LinkedList {
   }
 }
 
-let lst = new LinkedList();
-lst.unshift(5);
-console.log(lst.length); // 1
+let lst = new LinkedList([5,10]);
+console.log(lst.pop()); //10
 console.log(lst.head.val); //5
 console.log(lst.tail.val); //5
-lst.unshift(10);
-console.log(lst.length); //2
-console.log(lst.head.val); //10
-console.log(lst.head.next.val); //5
-console.log(lst.tail.val); //5
-lst.unshift(15);
-console.log(lst.length); //3
-console.log(lst.head.val); //15
-console.log(lst.head.next.next.val); //5
-console.log(lst.tail.val); //5
+console.log(lst.length); //1
+console.log(lst.pop()); //5
+console.log(lst.tail); //null
+console.log(lst.head); //null
+console.log(lst.length); //0
 
 /*
 describe("push", function() {
