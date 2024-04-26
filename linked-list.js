@@ -21,7 +21,16 @@ class LinkedList {
   /** push(val): add new value to end of list. */
 
   push(val) {
-
+    let newNode = new Node(val);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length++;
   }
 
   /** unshift(val): add new value to start of list. */
@@ -73,29 +82,25 @@ class LinkedList {
   }
 }
 
+let lst = new LinkedList();
+console.log("Hello world!");
+lst.push(5);
+console.log(lst.length); // 1
+console.log(lst.head.val); //5
+console.log(lst.tail.val); //5
+lst.push(10);
+console.log(lst.length); //2
+console.log(lst.head.val); //5
+console.log(lst.head.next.val); //10
+console.log(lst.tail.val); //10
+lst.push(15);
+console.log(lst.length); //3
+console.log(lst.head.val); //5
+console.log(lst.head.next.next.val); //15
+console.log(lst.tail.val); //15
+
+
 /*
-describe("push", function() {
-  it("appends node and increments length", function() {
-    let lst = new LinkedList();
-
-    lst.push(5);
-    expect(lst.length).toBe(1);
-    expect(lst.head.val).toBe(5);
-    expect(lst.tail.val).toBe(5);
-
-    lst.push(10);
-    expect(lst.length).toBe(2);
-    expect(lst.head.val).toBe(5);
-    expect(lst.head.next.val).toBe(10);
-    expect(lst.tail.val).toBe(10);
-
-    lst.push(15);
-    expect(lst.length).toBe(3);
-    expect(lst.head.val).toBe(5);
-    expect(lst.head.next.next.val).toBe(15);
-    expect(lst.tail.val).toBe(15);
-  });
-});
 
 describe("unshift", function() {
   it("adds node at start and increments length", function() {
