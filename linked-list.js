@@ -75,7 +75,21 @@ class LinkedList {
   /** shift(): return & remove first item. */
 
   shift() {
+    if (!this.length) {
+      throw new Error("The list is empty!");
+    }
 
+    let nodeToRemove = this.head;
+    if (this.head === this.tail) {
+      this.head = null;
+      this.tail = null;
+    }
+    else {
+      this.head = this.head.next;
+    }
+
+    this.length--;
+    return nodeToRemove.val;
   }
 
   /** getAt(idx): get val at idx. */
@@ -110,11 +124,10 @@ class LinkedList {
 }
 
 let lst = new LinkedList([5,10]);
-console.log(lst.pop()); //10
-console.log(lst.head.val); //5
-console.log(lst.tail.val); //5
+console.log(lst.shift()); //5
+console.log(lst.tail.val); //10
 console.log(lst.length); //1
-console.log(lst.pop()); //5
+console.log(lst.shift()); //10
 console.log(lst.tail); //null
 console.log(lst.head); //null
 console.log(lst.length); //0
