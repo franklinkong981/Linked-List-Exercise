@@ -134,7 +134,36 @@ class LinkedList {
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
-
+    if (idx < 0) {
+      throw new Error ("The index supplied must be >= 0!");
+    }
+    else if (idx > this.length) {
+      throw new Error("The index supplied must be between 0 and ${this.length - 1}!");
+    }
+    //cases: 1. Inserting into empty list. 2. Inserting as the first element. 3. Inserting as the last element. 4. Inserting in the middle.
+    //Inserting into empty list OR inserting as last element.
+    if (this.length === 0 || idx === this.length) {
+      this.push(val);
+    }
+    //Inserting as the first element.
+    else if (idx === 0) {
+      this.unshift(val);
+    }
+    //Inserting in the middle
+    else {
+      let newNode = new Node(val);
+      let currentIndex = 0;
+      let currentNode = this.head;
+      let prevNode = null;
+      while (currentIndex < idx) {
+        prevNode = currentNode;
+        currentNode = currentNode.next;
+        currentIndex++;
+      }
+      prevNode.next = newNode;
+      newNode.next = currentNode;
+      this.length++;
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
@@ -150,11 +179,22 @@ class LinkedList {
   }
 }
 
-let lst = new LinkedList([5,10]);
-lst.setAt(0,1);
-lst.setAt(1,2);
-console.log(lst.head.val); //1
-console.log(lst.head.next.val); //2
+let lst = new LinkedList([5,10, 15, 20]);
+lst.insertAt(2,12);
+console.log(lst.length); //5
+console.log(lst.head.val); //5
+console.log(lst.head.next.val); //10
+console.log(lst.head.next.next.val); //12
+console.log(lst.head.next.next.next.val); //15
+console.log(lst.head.next.next.next.next.val); //20
+lst.insertAt(5,25);
+console.log(lst.head.next.next.next.next.next.val); //25
+console.log(lst.tail.val); //25
+let lst2 = new LinkedList();
+lst2.insertAt(0,5);
+console.log(lst2.length); //1
+console.log(lst2.head.val); //5
+console.log(lst2.tail.val); //5
 
 /*
 describe("push", function() {
