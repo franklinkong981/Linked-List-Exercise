@@ -200,18 +200,23 @@ class LinkedList {
     }
   }
 
-  /** average(): return an average of all values in the list */
+  /** average(): return an average of all values in the list. Returns 0 for an empty list. */
 
   average() {
-    
+    if (!this.head) {
+      return 0;
+    }
+
+    let currentNode = this.head;
+    let sum = this.head.val;
+    while (currentNode.next != null) {
+      currentNode = currentNode.next;
+      sum += currentNode.val;
+    }
+    return sum / this.length;
   }
 }
 
-let lst = new LinkedList(["a"]);
-lst.removeAt(0);
-console.log(lst.length); //0
-console.log(lst.head); //null
-console.log(lst.tail); //null
 
 /*
 describe("push", function() {
