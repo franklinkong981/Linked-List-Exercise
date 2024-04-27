@@ -169,7 +169,35 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
-
+    if (idx < 0) {
+      throw new Error ("The index supplied must be >= 0!");
+    }
+    else if (idx >= this.length) {
+      throw new Error("The index supplied must be between 0 and ${this.length - 1}!");
+    }
+    //cases: 1. Removing the first element. 2. Removing the last element. 3. Removing a middle node.
+    //Removing the last element.
+    if (idx === this.length-1) {
+      this.pop();
+    }
+    //Removing the first element.
+    else if (idx === 0) {
+      this.shift();
+    }
+    //Removing an element in the middle.
+    else {
+      let currentIndex = 0;
+      let currentNode = this.head;
+      let prevNode = null;
+      while (currentIndex < idx) {
+        prevNode = currentNode;
+        currentNode = currentNode.next;
+        currentIndex++;
+      }
+      //now, currentNode is the node we want to remove.
+      prevNode.next = currentNode.next;
+      this.length--;
+    }
   }
 
   /** average(): return an average of all values in the list */
@@ -179,22 +207,11 @@ class LinkedList {
   }
 }
 
-let lst = new LinkedList([5,10, 15, 20]);
-lst.insertAt(2,12);
-console.log(lst.length); //5
-console.log(lst.head.val); //5
-console.log(lst.head.next.val); //10
-console.log(lst.head.next.next.val); //12
-console.log(lst.head.next.next.next.val); //15
-console.log(lst.head.next.next.next.next.val); //20
-lst.insertAt(5,25);
-console.log(lst.head.next.next.next.next.next.val); //25
-console.log(lst.tail.val); //25
-let lst2 = new LinkedList();
-lst2.insertAt(0,5);
-console.log(lst2.length); //1
-console.log(lst2.head.val); //5
-console.log(lst2.tail.val); //5
+let lst = new LinkedList(["a"]);
+lst.removeAt(0);
+console.log(lst.length); //0
+console.log(lst.head); //null
+console.log(lst.tail); //null
 
 /*
 describe("push", function() {
