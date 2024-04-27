@@ -95,7 +95,20 @@ class LinkedList {
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
+    if (idx < 0) {
+      throw new Error ("The index supplied must be >= 0!");
+    }
+    else if (idx >= this.length) {
+      throw new Error("The index supplied must be between 0 and ${this.length - 1}!");
+    }
 
+    let currentIndex = 0;
+    let currentNode = this.head;
+    while (currentIndex < idx) {
+      currentNode = currentNode.next;
+      currentIndex++;
+    }
+    return currentNode.val;
   }
 
   /** setAt(idx, val): set val at idx to val */
@@ -124,13 +137,8 @@ class LinkedList {
 }
 
 let lst = new LinkedList([5,10]);
-console.log(lst.shift()); //5
-console.log(lst.tail.val); //10
-console.log(lst.length); //1
-console.log(lst.shift()); //10
-console.log(lst.tail); //null
-console.log(lst.head); //null
-console.log(lst.length); //0
+console.log(lst.getAt(0)); //5
+console.log(lst.getAt(1)); //10
 
 /*
 describe("push", function() {
