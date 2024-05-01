@@ -527,3 +527,70 @@ function sortLinkedLists(listA, listB) {
 
   return combinedList;
 }
+
+/* pivot: Rearrange the items in a linked list so that all items with data less tan a iven value
+are in the first half, and items with greater than or equal to the given value are in the second half. */
+function pivotSingle(list, pivotValue) {
+  if (list.length <= 1){
+    return list;
+  }
+
+  let pivotLessThan = new LinkedList();
+  let pivotGreaterThan = new LinkedList();
+  let currentNode = list.head;
+
+  while (currentNode) {
+    let newNode = new Node(currentNode.val);
+    if (currentNode.val < pivotValue) {
+      pivotLessThan.push(newNode);
+    }
+    else {
+      pivotGreaterThan.push(newNode);
+    }
+  }
+
+  if (pivotLessThan.length === 0) {
+    return pivotGreaterThan;
+  }
+  else if (pivotGreaterThan.length === 0) {
+    return pivotLessThan;
+  }
+  else {
+    pivotLessThan.tail.next = pivotGreaterThan.head;
+    return pivotLessThan;
+  }
+  
+}
+
+function pivotDouble(list, pivotValue) {
+  if (list.length <= 1){
+    return list;
+  }
+
+  let pivotLessThan = new DoublyLinkedList();
+  let pivotGreaterThan = new DoublyLinkedList();
+  let currentNode = list.head;
+
+  while (currentNode) {
+    let newNode = new DNode(currentNode.val);
+    if (currentNode.val < pivotValue) {
+      pivotLessThan.push(newNode);
+    }
+    else {
+      pivotGreaterThan.push(newNode);
+    }
+  }
+
+  if (pivotLessThan.length === 0) {
+    return pivotGreaterThan;
+  }
+  else if (pivotGreaterThan.length === 0) {
+    return pivotLessThan;
+  }
+  else {
+    pivotLessThan.tail.next = pivotGreaterThan.head;
+    pivotGreaterThan.head.prev = pivotLessThan.tail;
+    return pivotLessThan;
+  }
+  
+}
