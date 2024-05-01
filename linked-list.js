@@ -432,4 +432,20 @@ class DoublyLinkedList {
       return nodeToRemove.val;
     }
   }
+
+  /** average(): return an average of all values in the list. Returns 0 for an empty list. */
+
+  average() {
+    if (!this.head) {
+      return 0;
+    }
+
+    let currentNode = this.head;
+    let sum = this.head.val;
+    while (currentNode.next != null) {
+      currentNode = currentNode.next;
+      sum += currentNode.val;
+    }
+    return sum / this.length;
+  }
 }
