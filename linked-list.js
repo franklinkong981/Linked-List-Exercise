@@ -489,3 +489,41 @@ function reverseDoublyLinkedList(list) {
   this.head = this.tail;
   this.tail = newLastNode;
 }
+
+/* sortLinkedLists: Aruments are two linked lists (listA and listB), both of which are already sorted (head is lowest node,
+tail is highest node). It should return a new linked list in sorted order. */
+function sortLinkedLists(listA, listB) {
+  let combinedList = new LinkedList();
+  let currentNodeA = listA.head;
+  let currentNodeB = listB.head;
+
+  while (currentNodeA && currentNodeB){
+    if (currentNodeA.val <= currentNodeB.val) {
+      combinedList.push(currentNodeA);
+      currentNodeA = currentNodeA.next;
+    }
+    else {
+      combinedList.push(currentNodeB);
+      currentNodeB = currentNodeB.next;
+    }
+    combinedList.length++;
+  }
+
+  if (currentNodeA) {
+    while (currentNodeA) {
+      combinedList.push(currentNodeA);
+      combinedList.length++;
+      currentNodeA = currentNodeA.next;
+    }
+  }
+
+  if (currentNodeB) {
+    while (currentNodeB) {
+      combinedList.push(currentNodeB);
+      combinedList.length++;
+      currentNodeB = currentNodeB.next;
+    }
+  }
+
+  return combinedList;
+}
