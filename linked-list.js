@@ -394,7 +394,42 @@ class DoublyLinkedList {
       newNode.prev = nodeToLeft;
       newNode.next = nodeToRight;
       nodeToRight.prev = newNode;
+
+      this.length++;
     }
-    this.length++;
+  }
+
+  /* removeAt(idx): Remove and return value at position idx. Throws error if index is invalid. */
+  removeAt(idx) {
+    if (idx < 0) {
+      throw new Error ("The index supplied must be >= 0!");
+    }
+    else if (idx >= this.length) {
+      throw new Error("The index supplied must be between 0 and ${this.length - 1}!");
+    }
+
+    //cases: 1. Removing the first element. 2. Removing the last element. 3. Removing a middle node.
+    //Removing the last element.
+    if (idx === this.length-1) {
+      this.pop();
+    }
+    //Removing the first element.
+    else if (idx === 0) {
+      this.shift();
+    }
+    //Removing an element in the middle.
+    else {
+      let nodeToRemove = this.getAt(index);
+      let nodeToLeft = nodeToRemove.prev;
+      let nodeToRight = nodeToRemove.next;
+
+      nodeToLeft.next = nodeToRight;
+      nodeToRight.prev = nodeToLeft;
+      nodeToRemove.prev = null;
+      nodeToRemove.next = null;
+
+      this.length--;
+      return nodeToRemove.val;
+    }
   }
 }
