@@ -314,7 +314,7 @@ class DoublyLinkedList {
     return nodeToRemove.val;
   }
 
-  /* getAt(idx): Retrieve value at index position idx. Throws error if index is invalid. */
+  /* getAt(idx): Retrieve the node at index position idx. Throws error if index is invalid. */
   getAt(idx) {
     if (idx < 0 || idx >= this.length) { //Includes case of empty list.
       throw new Error("The index is not valid!");
@@ -337,7 +337,7 @@ class DoublyLinkedList {
         currentNode = currentNode.prev;
         currentIndex--;
       }
-      return currentNode.val;
+      return currentNode;
     }
   }
 
@@ -365,5 +365,36 @@ class DoublyLinkedList {
     }
 
     currentNode.val = val;
+  }
+
+  /* insertAt(idx, val): Insert a new node at position idx with value val. Throws error if index is invalid. */
+  insertAt(idx, val) {
+    if (idx < 0) {
+      throw new Error ("The index supplied must be >= 0!");
+    }
+    else if (idx > this.length) {
+      throw new Error("The index supplied must be between 0 and ${this.length - 1}!");
+    }
+    //cases: 1. Inserting into empty list. 2. Inserting as the first element. 3. Inserting as the last element. 4. Inserting in the middle.
+    //Inserting into empty list OR inserting as last element.
+    if (this.length === 0 || idx === this.length) {
+      this.push(val);
+    }
+    //Inserting as the first element.
+    else if (idx === 0) {
+      this.unshift(val);
+    }
+    //Inserting in the middle
+    else {
+      let newNode = new Node(val);
+      let nodeToRight = this.getAt(idx);
+      let nodeToLeft = nodeToRight.prev;
+
+      nodeToLeft.next = newNode;
+      newNode.prev = nodeToLeft;
+      newNode.next = nodeToRight;
+      nodeToRight.prev = newNode;
+    }
+    this.length++;
   }
 }
