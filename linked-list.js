@@ -313,4 +313,33 @@ class DoublyLinkedList {
     this.length--;
     return nodeToRemove.val;
   }
+
+  /* getAt(idx): Retrieve value at index position idx. Throws error if index is invalid. */
+  getAt(idx) {
+    if (idx < 0 || idx >= this.length) { //Includes case of empty list.
+      throw new Error("The index is not valid!");
+    }
+
+    //to speed up traversal, start from tail and go backwards if idx is closer to the end of the list.
+    if (idx < (this.length/2)) {
+      let currentNode = this.head;
+      let currentIndex = 0;
+      while (currentIndex !== idx) {
+        currentNode = currentNode.next;
+        currentIndex++;
+      }
+      return currentNode.val;
+    }
+    else { //start from tail and traverse backwards.
+      let currentNode = this.tail;
+      let currentIndex = this.length - 1;
+      while (currentIndex !== idx) {
+        currentNode = currentNode.prev;
+        currentIndex--;
+      }
+      return currentNode.val;
+    }
+  }
+
+  
 }
