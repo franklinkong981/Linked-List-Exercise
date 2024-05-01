@@ -269,4 +269,26 @@ class DoublyLinkedList {
 
     this.length++;
   }
+
+  /* pop(val): Removes ad returns tail value. Throws error if list is empty. */
+  pop() {
+    if (!this.head) {
+      throw new Error("The linked list is currently empty!");
+    }
+
+    let nodeToRemove = this.tail;
+    if (this.head == this.tail) {
+      this.head = null;
+      this.tail = null;
+    }
+    else {
+      let newTail = this.tail.prev;
+      newTail.next = null;
+      this.tail.prev = null; //have to set prev of tail to null as well to completely sever the connection.
+      this.tail = newTail;
+    }
+
+    this.length--;
+    return nodeToRemove.val;
+  }
 }
