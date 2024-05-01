@@ -321,8 +321,8 @@ class DoublyLinkedList {
     }
 
     //to speed up traversal, start from tail and go backwards if idx is closer to the end of the list.
+    let currentNode = this.head;
     if (idx < (this.length/2)) {
-      let currentNode = this.head;
       let currentIndex = 0;
       while (currentIndex !== idx) {
         currentNode = currentNode.next;
@@ -331,7 +331,7 @@ class DoublyLinkedList {
       return currentNode.val;
     }
     else { //start from tail and traverse backwards.
-      let currentNode = this.tail;
+      currentNode = this.tail;
       let currentIndex = this.length - 1;
       while (currentIndex !== idx) {
         currentNode = currentNode.prev;
@@ -341,5 +341,29 @@ class DoublyLinkedList {
     }
   }
 
-  
+  /* setAt(idx, val): Set value of node at index position idx to val. Throws error if index is invalid */
+  setAt(idx, val) {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("The index is not valid!");
+    }
+
+    let currentNode = this.head;
+    if (idx <  (this.length/2)) {
+      let currentIndex = 0;
+      while (currentIndex !== idx) {
+        currentNode = currentNode.next;
+        currentIndex++;
+      }
+    }
+    else {
+      currentNode = this.tail;
+      let currentIndex = this.length - 1;
+      while (currentIndex !== idx) {
+        currentNode = currentNode.prev;
+        currentIndex--;
+      }
+    }
+
+    currentNode.val = val;
+  }
 }
