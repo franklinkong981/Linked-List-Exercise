@@ -291,4 +291,26 @@ class DoublyLinkedList {
     this.length--;
     return nodeToRemove.val;
   }
+
+  /* shift: Remove and return head value. Throws error if list is empty. */
+  shift() {
+    if (!this.head) {
+      throw new Error("The linked list is currently empty!");
+    }
+
+    let nodeToRemove = this.head;
+    if (this.head == this.tail) {
+      this.head = null;
+      this.tail = null;
+    }
+    else {
+      let newHead = this.head.next;
+      newHead.prev = null;
+      this.head.next = null;
+      this.head = newHead;
+    }
+
+    this.length--;
+    return nodeToRemove.val;
+  }
 }
