@@ -236,4 +236,20 @@ class DoublyLinkedList {
 
     for (let val of vals) this.push(val);
   }
+
+  /* push(val): Add new value to end of list */
+  push(val) {
+    let newNode = new DNode(val);
+    if (!this.head) {
+      //head is null, length of linked list is 0.
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    }
+    this.length++;
+  }
 }
