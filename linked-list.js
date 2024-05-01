@@ -449,3 +449,43 @@ class DoublyLinkedList {
     return sum / this.length;
   }
 }
+
+/* reverseSinglyLinkedList: Reverse a singly linked list in place, not by creating a new list or new nodes. */
+function reverseSinglyLinkedList(list) {
+  if (this.length <= 1) {
+    return;
+  }
+
+  let currentNode = this.head;
+  let nextNode = currentNode.next;
+  let prevNode = null;
+  while (nextNode != null) {
+    currentNode.next = prevNode;
+    prevNode = currentNode;
+    currentNode = nextNode;
+    nextNode = currentNode.next;
+  }
+  currentNode.next = prevNode;
+
+  this.tail = this.head;
+  this.head = currentNode;
+}
+
+/* reverseDoublyLinkedList: Reverse a Doubly linked list in place, not by creating a new list or new nodes. */
+function reverseDoublyLinkedList(list) {
+  if (this.length <= 1) {
+    return;
+  }
+
+  let currentNode = this.head;
+  while (currentNode != null) {
+    let nextNode = currentNode.next;
+    currentNode.next = currentNode.prev;
+    currentNode.prev = nextNode;
+    currentNode = nextNode;
+  }
+
+  let newLastNode = this.head;
+  this.head = this.tail;
+  this.tail = newLastNode;
+}
