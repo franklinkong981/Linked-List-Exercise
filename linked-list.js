@@ -252,4 +252,21 @@ class DoublyLinkedList {
     }
     this.length++;
   }
+
+  /* unshift(val): Adds a new node with value val to the head. Returns undefined. */
+  unshift(val) {
+    let newNode = new DNode(val);
+    if (!this.head) {
+      //head is null, length of linked list is 0.
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else {
+      this.head.prev = newNode;
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    this.length++;
+  }
 }
